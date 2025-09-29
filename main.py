@@ -34,16 +34,14 @@ async def get_video(url: str):
     }
     with YoutubeDL(get_video) as ydl:
         info = ydl.extract_info(url, download=False)
+        print("exract")
     thumbnail = info.get("thumbnail", "")
     title = info.get("title", "")
     duration = info.get("duration", 0)
     formats = list()
     quality_list={}
-    print(info)
     for f in info.get("formats", []):
         if f.get("vcodec") != "none" :
-           
-
             height = f.get("height")
             width = f.get("width")
             format_note = f.get("format_note")
@@ -75,7 +73,9 @@ async def get_video(url: str):
                 "quality": quality if quality else "Unknown",
                 "fps": fps,
             })
+            print(f.get("format_id"),quality)
     formats = sorted(formats, key=lambda x: parse_quality(x["quality"]), reverse=True)
+    print("done")
     return {
         "thumbnail": thumbnail,
         "title": title,
