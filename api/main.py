@@ -29,6 +29,9 @@ def size(size):
     else:
         size = size / 1024.0
         return f"{size:.2f} GB"
+@app.get("/hello") 
+def hello():
+    return {"message": "Hello, World!"}   
 @app.get("/", response_class=HTMLResponse)
 def read_root():
     return """
